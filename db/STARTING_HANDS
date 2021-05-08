@@ -1,0 +1,5 @@
+create table starting_hands (
+  id SERIAL PRIMARY KEY,
+  crucible_game_id text,
+  hands json
+);

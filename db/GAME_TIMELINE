@@ -1,0 +1,7 @@
+create table game_timeline (
+  id SERIAL PRIMARY KEY,
+  game_id INTEGER REFERENCES games (id),
+  winner text,
+  loser text,
+  turns json
+);

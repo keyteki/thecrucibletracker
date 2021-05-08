@@ -1,0 +1,37 @@
+#! /usr/bin/env bash
+
+files=(
+  PLAYERS
+  ACHIEVEMENTS
+  BOARD_STATES
+  STARTING_HANDS
+  GAME_TIMELINE
+  GAME_SUMMARY
+  EVENTS
+  GAMES
+)
+
+for i in "${files[@]}"; 
+do 
+  PGPASSWORD=postgres psql -h localhost -p 3005 -U postgres -c "DROP TABLE IF EXISTS ${i}"
+done
+
+# reverse files
+min=0
+max=$(( ${#files[@]} -1 ))
+while [[ min -lt max ]]
+do
+  x="${files[$min]}"
+  files[$min]="${files[$max]}"
+  files[$max]="$x"
+  (( min++, max-- ))
+done
+
+
+for i in "${files[@]}"; 
+do 
+  sql=`tr -d '\n' < db/${i}`;
+  PGPASSWORD=postgres psql -h localhost -p 3005 -U postgres -c "${sql}"
+done
+
+PGPASSWORD=postgres psql -h localhost -p 3005 -U postgres -c '\d'

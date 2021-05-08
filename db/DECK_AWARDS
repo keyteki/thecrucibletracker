@@ -1,0 +1,7 @@
+CREATE TABLE deck_awards (
+  id SERIAL PRIMARY KEY,
+  type TEXT,
+  player TEXT,
+  deck_uuid TEXT,
+  date_created TIMESTAMP
+);

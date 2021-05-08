@@ -1,0 +1,9 @@
+create table board_states (
+  id SERIAL PRIMARY KEY,
+  crucible_game_id text,
+  turn smallint,
+  board json,
+  hand json,
+  archives json,
+  purged json
+);

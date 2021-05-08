@@ -1,0 +1,20 @@
+create table games (
+  id SERIAL PRIMARY KEY,
+  winner text,
+  loser text,
+  turns smallint,
+  winner_deck_id text,
+  winner_deck_name text,
+  winner_keys smallint,
+  winner_checks smallint,
+  loser_deck_id text,
+  loser_deck_name text,
+  loser_keys smallint,
+  loser_checks smallint,
+  date timestamp,
+  crucible_game_id text,
+  scanned_for_card_plays boolean DEFAULT FALSE,
+  scanned_for_achievements boolean DEFAULT FALSE,
+  winner_deck_expansion text,
+  loser_deck_expansion text
+);

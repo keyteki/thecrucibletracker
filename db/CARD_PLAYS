@@ -1,0 +1,6 @@
+create table card_plays (
+  id SERIAL PRIMARY KEY,
+  card text NOT NULL,
+  player text NOT NULL,
+  count int DEFAULT 0
+);

@@ -1,0 +1,5 @@
+create table events (
+  id SERIAL PRIMARY KEY,
+  game_id INTEGER REFERENCES games (id),
+  events json
+);

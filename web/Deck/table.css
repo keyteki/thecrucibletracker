@@ -1,0 +1,164 @@
+.games-screen .username {
+  font-size: 26px;
+  margin-bottom: 15px;
+}
+
+.games-screen .page-title  {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 26px;
+  padding: 10px;
+}
+
+.games-screen .controls {
+  margin: 10px 0 30px 10px;
+}
+
+.games-screen .controls input {
+  margin-right: 10px;
+  font-size: 13px;
+}
+
+.games-screen .controls input.right-side {
+  margin-left: 10px;
+}
+
+.games-screen .deck-stat {
+  margin-left: 36px;
+  margin-top: 30px;
+}
+
+.games-screen .win-ratio {
+  margin-bottom: 30px;
+}
+
+.games-screen .games {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  background-color: #eee;
+}
+
+.games-screen .result-text {
+  font-size: 16px;
+  padding: 8px;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+}
+
+.games-screen .result-win {
+  background-color: #77DD77;
+  width: 11px;
+  height: 37px;
+}
+
+.games-screen .result-loss {
+  background-color: #F4877C;
+  width: 11px;
+  height: 37px;
+}
+
+.games-screen .timeline {
+  margin: 20px;
+}
+
+.timeline .starting-player {
+  font-size: 12px;
+  margin-left: 43px;
+  color: #888;
+}
+
+.chart-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.status-text {
+  display: inline;
+  padding: 5px 10px;
+  margin: 20px -10px 0 -10px;
+  font-size: 14px;
+}
+
+.game-result {
+  margin: 0 -10px 10px -10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.game-result .player-stats-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.game-result .player-stats {
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  padding-left: 20px;
+}
+
+.game-result .player-stats .stat {
+  min-width: 60px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 5px;
+}
+
+.game-result .player-stats .stat:nth-child(4) {
+  margin-right: 60px;
+}
+
+.game-result .player-stats .stat-title {
+  font-weight: bold;
+  font-size: 10px;
+  color: #666;
+  text-transform: uppercase;
+}
+
+.game-result .player-stats .stat-value {
+  font-size: 15px;
+}
+
+.game-result .player-stats .player-name {
+  min-width: 175px;
+  margin-top: 5px;
+}
+
+.game-result .player-stats .deck-name {
+  margin-bottom: 15px;
+  margin-left: 15px;
+  width: 300px;
+  font-size: 14px;
+}
+
+.game-result .player-stats .player-name span {
+  color: black;
+  font-size: 14px;
+}
+
+.game-result .stat-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-left: 10px;
+}
+
+.game-result .stat-group .stat {
+  margin-top: 0;
+}
+
+.game-result .stat-group .stat-group-title {
+  color: #666;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 0 5px;
+}
+
+.game-result .stat-group .stat-group-items {
+  display: flex;
+  flex-direction: row;
+}

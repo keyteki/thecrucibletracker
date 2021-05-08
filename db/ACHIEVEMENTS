@@ -1,0 +1,8 @@
+create table achievements (
+  id SERIAL PRIMARY KEY,
+  name text,
+  progress INTEGER DEFAULT 0,
+  player text,
+  date_awarded_on timestamp,
+  game_awarded_in_crucible_game_id text
+);

@@ -1,0 +1,89 @@
+.game-log-screen {
+}
+
+.game-log-screen * {
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.game-log-screen .player-stats-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.game-log-screen .player-stats {
+  margin: 0 -10px;
+}
+
+.game-log-screen .player-stats:nth-of-type(2) {
+  margin-bottom: 20px;
+}
+
+.game-log-screen .deck-name {
+  font-size: 20px;
+  padding: 5px 0;
+  text-decoration: none;
+}
+
+.game-log-screen .stats-container {
+  display: flex;
+}
+
+.game-log-screen .stat img {
+  width: 32px;
+  height: 32px;
+}
+
+.game-log-screen .stat-title {
+  margin-top: 10px;
+}
+
+.game-log-screen .house-calls * {
+  font-size: 13px;
+}
+
+.game-log-screen .house-calls .stat {
+  padding: 5px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.game-log-screen .house-calls .stat-value.house {
+  margin-left: 11px;
+}
+
+.game-log-screen .results {
+  margin-top: 5px;
+}
+
+.game-log-screen .results * {
+  padding: 2px;
+  margin: 0 4px;
+  text-decoration: none;
+  color: black;
+}
+
+.game-log-screen .line {
+  margin: 5px 0px;
+  padding: 5px;
+  padding-left: 0;
+  display: flex;
+  align-items: center;
+}
+
+.game-log-screen .regular-line {
+  margin-left: 15px;
+}
+
+.game-log-screen .line-content {
+  margin-left: 5px;
+}
+
+.game-log-screen img {
+  width: 30px;
+  margin-left: 4px;
+}
