@@ -38,6 +38,7 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.20.0",
@@ -51,7 +52,7 @@
     "webpack-dev-server": "^3.3.1"
   },
   "scripts": {
-    "build": "bin/build",
+    "build": "cross-env bin/build",
     "psql": "docker exec -it thecrucibletracker_postgres_1 psql postgres://postgres:postgres@127.0.0.1/postgres",
     "watch": "NODE_ENV=development bin/build && NODE_ENV=development webpack --progress --watch",
     "worker": "NODE_ENV=development DATABASE_URL=postgres://postgres:postgres@127.0.0.1:3005/postgres REDIS_URL=redis://localhost:3004 node worker",

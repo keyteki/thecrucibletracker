@@ -2,7 +2,7 @@
 rm -fr dist/
 mkdir -p dist/images
 webpack
-cp images/*.png dist/images/
-cp images/*.jpg dist/images/
+#cp images/*.png dist/images/
+#cp images/*.jpg dist/images/
 cp web/*.html dist
 cp favicon.ico dist
