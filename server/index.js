@@ -8,7 +8,7 @@ const { cleanGame, cleanPlayerObject } = require('../privacy');
 
 const dbPool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: false // process.env.NODE_ENV === 'development' ? false : { rejectUnauthorized: false }
+    ssl: false
 });
 
 let recentGames = [];
