@@ -1,4 +1,4 @@
-const base = process.env.NODE_ENV === 'development' ? 'http://localhost:8003' : 'your-s3-bucket';
+const base = process.env.NODE_ENV === 'development' ? 'http://localhost:8003' : 'https://thecrucible.online/img';
 
 export default (id, assetType, card) => {
   if (!id) {
@@ -13,7 +13,7 @@ export default (id, assetType, card) => {
       return `${base}/${id}-${card.house.toLowerCase()}.png`;
     }
 
-    return `${base}/${id}.png`;
+    return `${base}/cards/${id}.png`;
   }
 
   return `${base}/${id}.png`;
