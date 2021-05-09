@@ -428,7 +428,7 @@ class Leaderboards extends React.PureComponent {
                       <div style={{ marginTop: '0.5rem' }}>{`${player.wins} wins - ${player.losses} losses`}</div>
                     </div>
                   </div>
-                  <a href={`https://decksofkeyforge.com/decks/${player.deckID}`} target="_blank">
+                  <a href={`https://keyforgegame.com/decks/${player.deckID}`} target="_blank" rel="noreferrer">
                     <Deck uuid={player.deckID} isMobile={isMobile} height={600} width={428} />
                   </a>
                 </div>

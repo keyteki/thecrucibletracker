@@ -122,7 +122,7 @@ class Table extends Component {
                   </>
                 )}
                 <a
-                  href={`https://decksofkeyforge.com/decks/${deckID}`}
+                  href={`https://keyforgegame.com/decks/${deckID}`}
                   style={{
                     textDecoration: 'none'
                   }}
@@ -198,7 +198,7 @@ class Table extends Component {
                 }}
                 >
                   { averageCardsPlayedDiff >= 0 ? `+${averageCardsPlayedDiff.toFixed(1)} cards` : `${averageCardsPlayedDiff.toFixed(1)} cards` }
-                </span>
+                       </span>
               })}
               { user && !Number.isNaN(averageCardsPerTurn) && Stat({
                 title: 'Avg Cards Played',
@@ -208,7 +208,7 @@ class Table extends Component {
                 }}
                 >
                   { `${averageCardsPerTurn.toFixed(1)} cards` }
-                </span>
+                       </span>
               })}
               { user && !Number.isNaN(gameLengthAverage) && Stat({
                 title: 'Avg Length',
@@ -218,7 +218,7 @@ class Table extends Component {
                 }}
                 >
                   { `${gameLengthAverage} turns` }
-                </span>
+                       </span>
               })}
             </div>
           </div>

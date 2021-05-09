@@ -123,7 +123,7 @@ class Summary extends Component {
                       {game[result] === 'anonymous' ? <span className="deck-name">anonymous</span> : <a className="deck-name" href={`/users/${game[result]}`}>{ game[result] }</a>}
                       <span style={{ margin: '0 10px 0 5px', fontSize: '20px' }}> using </span>
                       {' '}
-                      <a className="deck-name" href={`https://decksofkeyforge.com/decks/${game[`${result}_deck_id`]}`}>{ game[`${result}_deck_name`] }</a>
+                      <a className="deck-name" href={`https://keyforgegame.com/decks/${game[`${result}_deck_id`]}`}>{ game[`${result}_deck_name`] }</a>
                     </div>
                     <div style={{ textAlign: 'right', }}>
                       {moment(game.date).format('MMMM Do, YYYY')}
@@ -135,7 +135,7 @@ class Summary extends Component {
                     {game[result] === 'anonymous' ? <span className="deck-name">anonymous</span> : <a className="deck-name" href={`/users/${game[result]}`}>{ game[result] }</a>}
                     <span style={{ margin: '0 10px 0 5px', fontSize: '20px' }}> using </span>
                     {' '}
-                    <a className="deck-name" href={`https://decksofkeyforge.com/decks/${game[`${result}_deck_id`]}`}>{ game[`${result}_deck_name`] }</a>
+                    <a className="deck-name" href={`https://keyforgegame.com/decks/${game[`${result}_deck_id`]}`}>{ game[`${result}_deck_name`] }</a>
                   </div>
                 )}
               <div className="stats-container house-calls">

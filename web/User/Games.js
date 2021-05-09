@@ -1,16 +1,11 @@
 import React, { Component, } from 'react';
 import InputLabel from '@material-ui/core/InputLabel';
-import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-import Switch from '@material-ui/core/Switch';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import DeckSummary from './DeckSummary';
 import Skeleton from './Skeleton';
 import Button from '../Components/Button';
-import metadata from '../achievements/metadata';
 
 class Games extends Component {
   constructor() {
@@ -72,8 +67,6 @@ class Games extends Component {
       user,
       isMobile,
       games,
-      awards,
-      achievements,
     } = this.props;
     const {
       sortBy,
@@ -129,10 +122,6 @@ class Games extends Component {
 
       const deckSummaries = games.filter((s) => deckGames.find((g) => g.id === s.id));
       const deckID = deckGames[0].winner === user ? deckGames[0].winner_deck_id : deckGames[0].loser_deck_id;
-
-      const decksOfKeyforgeURL = `https://decksofkeyforge.com/decks/${deckID}`;
-      const keyforgeCompendiumURL = `https://keyforge-compendium.com/decks/${deckID}`;
-      const gamesURL = `/users/${user}/decks/${deckID}`;
 
       return (
         <div key={name} className="deck-history">

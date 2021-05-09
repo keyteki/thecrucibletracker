@@ -88,7 +88,7 @@ const Leaderboard = ({
                   >
                     Deck
                   </div>
-                  <Link newTab text={deck.name} url={`https://decksofkeyforge.com/decks/${deck.deckID}`} />
+                  <Link newTab text={deck.name} url={`https://keyforgegame.com/decks/${deck.deckID}`} />
                   <div style={{ display: 'flex' }}>
                     <div style={{ marginRight: '3rem' }}>
                       <div style={{
@@ -123,7 +123,7 @@ const Leaderboard = ({
                 </div>
               </div>
             </div>
-            <a href={`https://decksofkeyforge.com/decks/${deck.deckID}`} target="_blank">
+            <a href={`https://keyforgegame.com/decks/${deck.deckID}`} target="_blank" rel="noreferrer">
               <Deck uuid={deck.deckID} isMobile={isMobile} height={500} width={357} />
             </a>
           </div>
@@ -145,7 +145,7 @@ const Leaderboard = ({
                 : <Link newTab text={deck.player} url={`/users/${deck.player}/decks/${deck.deckID}`} />}
             </div>
             <div style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
-              {deck.player !== 'anonymous' && <Link newTab text={deck.name} url={`https://decksofkeyforge.com/decks/${deck.deckID}`} />}
+              {deck.player !== 'anonymous' && <Link newTab text={deck.name} url={`https://keyforgegame.com/decks/${deck.deckID}`} />}
               <div style={{ width: '110px', margin: '0' }}>
                 {`Elo: ${deck.elo}`}
                 { previous && (
@@ -184,7 +184,7 @@ const Leaderboard = ({
                 >
                   with
                 </div>
-                <Link newTab text={deck.name} url={`https://decksofkeyforge.com/decks/${deck.deckID}`} />
+                <Link newTab text={deck.name} url={`https://keyforgegame.com/decks/${deck.deckID}`} />
               </>
             )}
           </div>

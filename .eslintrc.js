@@ -1,39 +1,34 @@
 module.exports = {
+  root: true,
   env: {
-    browser: true,
-    es6: true,
-    node: true,
-    jest: true,
-  },
-  extends: [
-    'plugin:react/recommended',
-    'airbnb',
-  ],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
+      node: true,
+      es6: true,
+      browser: true
   },
   parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 2018,
+      ecmaVersion: 11
   },
-  plugins: [
-    'react',
+  parser: 'babel-eslint',
+  plugins: ['react', 'prettier'],
+  extends: [
+      'eslint:recommended',
+      //'plugin:react-hooks/recommended',
+      'plugin:react/recommended',
+      'plugin:prettier/recommended'
   ],
-  rules: {
-    "comma-dangle": "off",
-    "global-require": "off",
-    "max-len": "off",
-    "react/prop-types": "off",
-    "react/jsx-filename-extension": "off",
-    "no-console": "off",
-    "array-bracket-spacing": ["error", "always"],
-    "consistent-return": "off",
-    "no-await-in-loop": "off",
-    "camelcase": "off",
-    "no-unused-expressions": "off",
-    "no-param-reassign": "off"
+  rules: { 'react/prop-types': 'off' },
+  settings: {
+      react: {
+          version: 'detect'
+      }
   },
+  overrides: [
+      {
+          files: ['*.test.js'],
+          env: {
+              jasmine: true
+          },
+          plugins: ['jest']
+      }
+  ]
 };

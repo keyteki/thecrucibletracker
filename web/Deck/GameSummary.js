@@ -76,7 +76,8 @@ class GameSummary extends React.Component {
                     <a
                       style={{ margin: '5px 0', marginLeft: '10px', textDecoration: 'none' }}
                       target="_blank"
-                      href={`https://www.decksofkeyforge.com/decks/${game.winner_deck_id}`}
+                      href={`https://www.keyforgegame.com/decks/${game.winner_deck_id}`}
+                      rel="noreferrer"
                     >
                       {game.winner_deck_name}
                     </a>
@@ -85,7 +86,8 @@ class GameSummary extends React.Component {
                     <a
                       style={{ margin: '5px 0', marginLeft: '10px', textDecoration: 'none' }}
                       target="_blank"
-                      href={`https://www.decksofkeyforge.com/decks/${game.loser_deck_id}`}
+                      href={`https://www.keyforgegame.com/decks/${game.loser_deck_id}`}
+                      rel="noreferrer"
                     >
                       {game.loser_deck_name}
                     </a>
