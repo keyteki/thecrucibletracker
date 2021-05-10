@@ -1,14 +1,11 @@
 const toGameLog = require('../utils/toGameLog');
 
 module.exports = {
-  id: 'steal-with-borrow',
-  check: ({
-    player,
-    events,
-  }) => {
-    const regex = new RegExp(`${player} uses "Borrow" to take control of.*`);
-    return !!toGameLog(events).find((line) => regex.test(line));
-  }
+    id: 'steal-with-borrow',
+    check: ({ player, events }) => {
+        const regex = new RegExp(`${player} uses "Borrow" to take control of.*`);
+        return !!toGameLog(events).find((line) => regex.test(line));
+    }
 };
 
 // {

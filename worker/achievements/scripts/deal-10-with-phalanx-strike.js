@@ -1,25 +1,22 @@
 module.exports = {
-  id: 'deal-10-with-phalanx-strike',
-  check: ({
-    player,
-    game,
-    summary,
-    events,
-  }) => !!events.find((e) => {
-    const isEvent = Array.isArray(e.message)
-        && e.message[0].name === player
-        && / uses /.test(e.message[1])
-        && e.message[2]
-        && e.message[2].argType === 'card'
-        && e.message[2].name === 'Phalanx Strike'
-        && e.message[4]
-        && e.message[4].message
-        && e.message[4].message[0] === 'deal ';
-    if (isEvent) {
-      const amount = e.message[4].message[1];
-      return amount >= 10;
-    }
-  })
+    id: 'deal-10-with-phalanx-strike',
+    check: ({ player, game, summary, events }) =>
+        !!events.find((e) => {
+            const isEvent =
+                Array.isArray(e.message) &&
+                e.message[0].name === player &&
+                / uses /.test(e.message[1]) &&
+                e.message[2] &&
+                e.message[2].argType === 'card' &&
+                e.message[2].name === 'Phalanx Strike' &&
+                e.message[4] &&
+                e.message[4].message &&
+                e.message[4].message[0] === 'deal ';
+            if (isEvent) {
+                const amount = e.message[4].message[1];
+                return amount >= 10;
+            }
+        })
 };
 
 // {

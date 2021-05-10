@@ -1,22 +1,20 @@
 const toGameLog = require('../utils/toGameLog');
 
 module.exports = {
-  id: 'steal-5-with-graft',
-  check: ({
-    player,
-    events,
-  }) => !!toGameLog(events).find((line) => {
-    const regex = new RegExp(`${player} uses Interdimensional Graft to transfer.*`);
-    if (regex.test(line)) {
-      const amount = Number.parseInt(
-        line
-          .replace(`${player} uses Interdimensional Graft to transfer `, '')
-          .replace(' amber from ', ''),
-        10
-      );
-      return amount >= 5;
-    }
-  })
+    id: 'steal-5-with-graft',
+    check: ({ player, events }) =>
+        !!toGameLog(events).find((line) => {
+            const regex = new RegExp(`${player} uses Interdimensional Graft to transfer.*`);
+            if (regex.test(line)) {
+                const amount = Number.parseInt(
+                    line
+                        .replace(`${player} uses Interdimensional Graft to transfer `, '')
+                        .replace(' amber from ', ''),
+                    10
+                );
+                return amount >= 5;
+            }
+        })
 };
 
 // {

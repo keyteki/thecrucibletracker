@@ -1,23 +1,22 @@
 module.exports = {
-  id: 'use-golden-spiral-on-rex',
-  check: ({
-    player,
-    game,
-    summary,
-    events,
-  }) => !!events.find((e) => Array.isArray(e.message)
-        && e.message[0].name === player
-        && / uses /.test(e.message[1])
-        && e.message[2]
-        && e.message[2].argType === 'card'
-        && e.message[2].name === 'The Golden Spiral'
-        && e.message[3] === ' to '
-        && e.message[4].message
-        && e.message[4].message[0] === 'exalt, ready and use '
-        && e.message[4].message[1]
-        && e.message[4].message[1]
-        && e.message[4].message[1]
-        && [ 'Cincinnatus Rex' ].includes(e.message[4].message[1].name))
+    id: 'use-golden-spiral-on-rex',
+    check: ({ player, game, summary, events }) =>
+        !!events.find(
+            (e) =>
+                Array.isArray(e.message) &&
+                e.message[0].name === player &&
+                / uses /.test(e.message[1]) &&
+                e.message[2] &&
+                e.message[2].argType === 'card' &&
+                e.message[2].name === 'The Golden Spiral' &&
+                e.message[3] === ' to ' &&
+                e.message[4].message &&
+                e.message[4].message[0] === 'exalt, ready and use ' &&
+                e.message[4].message[1] &&
+                e.message[4].message[1] &&
+                e.message[4].message[1] &&
+                ['Cincinnatus Rex'].includes(e.message[4].message[1].name)
+        )
 };
 
 // {

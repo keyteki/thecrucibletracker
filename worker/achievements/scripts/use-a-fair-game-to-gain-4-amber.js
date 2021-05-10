@@ -1,33 +1,30 @@
 module.exports = {
-  id: 'use-a-fair-game-to-gain-4-amber',
-  check: ({
-    player,
-    game,
-    summary,
-    events,
-  }) => !!events.find((e) => {
-    const isEvent = Array.isArray(e.message)
-        && e.message[0].name === player
-        && / uses /.test(e.message[1])
-        && e.message[2]
-        && e.message[2].argType === 'card'
-        && e.message[2].name === 'A Fair Game'
-        && / to /.test(e.message[3])
-        && e.message[4]
-        && e.message[4].message
-        && /discard/.test(e.message[4].message[0]);
+    id: 'use-a-fair-game-to-gain-4-amber',
+    check: ({ player, game, summary, events }) =>
+        !!events.find((e) => {
+            const isEvent =
+                Array.isArray(e.message) &&
+                e.message[0].name === player &&
+                / uses /.test(e.message[1]) &&
+                e.message[2] &&
+                e.message[2].argType === 'card' &&
+                e.message[2].name === 'A Fair Game' &&
+                / to /.test(e.message[3]) &&
+                e.message[4] &&
+                e.message[4].message &&
+                /discard/.test(e.message[4].message[0]);
 
-    if (!isEvent) {
-      return false;
-    }
+            if (!isEvent) {
+                return false;
+            }
 
-    const isFirst = e.message[4].message[1].name === player;
+            const isFirst = e.message[4].message[1].name === player;
 
-    if (!isFirst) {
-      return e.message[4].message[7] >= 4;
-    }
-    return e.message[4].message[17] >= 4;
-  })
+            if (!isFirst) {
+                return e.message[4].message[7] >= 4;
+            }
+            return e.message[4].message[17] >= 4;
+        })
 };
 
 // {

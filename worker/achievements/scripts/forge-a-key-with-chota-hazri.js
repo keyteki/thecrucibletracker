@@ -8,50 +8,47 @@
 // Forges the yellow key, paying 0 amber
 
 module.exports = {
-  id: 'forge-a-key-with-chota-hazri',
-  check: ({
-    player,
-    game,
-    summary,
-    events,
-  }) => {
-    let keyEventIndex = 0;
-    let endOfRoundEventIndex = 0;
+    id: 'forge-a-key-with-chota-hazri',
+    check: ({ player, game, summary, events }) => {
+        let keyEventIndex = 0;
+        let endOfRoundEventIndex = 0;
 
-    const keyEvent = events.find((e, i) => {
-      keyEventIndex = i;
-      return Array.isArray(e.message)
-        && e.message[0].name === player
-        && / plays /.test(e.message[1])
-        && e.message[2].argType === 'card'
-        && e.message[2].name === 'Chota Hazri';
-    });
+        const keyEvent = events.find((e, i) => {
+            keyEventIndex = i;
+            return (
+                Array.isArray(e.message) &&
+                e.message[0].name === player &&
+                / plays /.test(e.message[1]) &&
+                e.message[2].argType === 'card' &&
+                e.message[2].name === 'Chota Hazri'
+            );
+        });
 
-    if (!keyEvent) {
-      return false;
+        if (!keyEvent) {
+            return false;
+        }
+
+        const endOfRoundEvent = events.slice(keyEventIndex).find((e, i) => {
+            endOfRoundEventIndex = keyEventIndex + i;
+            return e.message && e.message.alert && e.message.alert.type === 'endofround';
+        });
+
+        if (!endOfRoundEvent) {
+            endOfRoundEventIndex = events.length;
+        }
+
+        const forgeKeyEvent = events
+            .slice(keyEventIndex, endOfRoundEventIndex)
+            .find(
+                (e, i) =>
+                    Array.isArray(e.message) &&
+                    e.message[0].name === player &&
+                    (/forges a key, paying/.test(e.message[1]) ||
+                        /forgedkeyred/.test(e.message[2]) ||
+                        /forgedkeyyellow/.test(e.message[2]) ||
+                        /forgedkeyblue/.test(e.message[2]))
+            );
+
+        return !!forgeKeyEvent;
     }
-
-    const endOfRoundEvent = events.slice(keyEventIndex).find((e, i) => {
-      endOfRoundEventIndex = keyEventIndex + i;
-      return e.message && e.message.alert && e.message.alert.type === 'endofround';
-    });
-
-    if (!endOfRoundEvent) {
-      endOfRoundEventIndex = events.length;
-    }
-
-    const forgeKeyEvent = events.slice(keyEventIndex, endOfRoundEventIndex).find((e, i) => (
-      Array.isArray(e.message)
-        && e.message[0].name === player
-        && (
-          /forges a key, paying/.test(e.message[1]) || (
-            /forgedkeyred/.test(e.message[2])
-            || /forgedkeyyellow/.test(e.message[2])
-            || /forgedkeyblue/.test(e.message[2])
-          )
-        )
-    ));
-
-    return !!forgeKeyEvent;
-  },
 };

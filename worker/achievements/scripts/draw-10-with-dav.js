@@ -1,24 +1,19 @@
 const toGameLog = require('../utils/toGameLog');
 
 module.exports = {
-  id: 'draw-10-with-dav',
-  check: ({
-    player,
-    game,
-    summary,
-    events,
-  }) => {
-    let draws = 0;
+    id: 'draw-10-with-dav',
+    check: ({ player, game, summary, events }) => {
+        let draws = 0;
 
-    const regex = new RegExp(`${player} uses Dark Æmber Vault to draw*`);
-    toGameLog(events).forEach((line) => {
-      if (regex.test(line)) {
-        draws += 1;
-      }
-    });
+        const regex = new RegExp(`${player} uses Dark Æmber Vault to draw*`);
+        toGameLog(events).forEach((line) => {
+            if (regex.test(line)) {
+                draws += 1;
+            }
+        });
 
-    return draws >= 10;
-  },
+        return draws >= 10;
+    }
 };
 
 // {

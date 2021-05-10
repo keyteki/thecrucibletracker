@@ -1,23 +1,20 @@
 const toGameLog = require('../utils/toGameLog');
 
 module.exports = {
-  id: 'steal-5-with-tmtp',
-  check: ({
-    player,
-    events,
-  }) =>
-    !!toGameLog(events).find((line) => {
-      const regex = new RegExp(`${player} uses Too Much to Protect to steal.*`);
-      if (regex.test(line)) {
-        const amount = Number.parseInt(
-          line
-            .replace(`${player} uses Too Much to Protect to steal `, '')
-            .replace(' amber from ', ''),
-          10
-        );
-        return amount >= 5;
-      }
-    })
+    id: 'steal-5-with-tmtp',
+    check: ({ player, events }) =>
+        !!toGameLog(events).find((line) => {
+            const regex = new RegExp(`${player} uses Too Much to Protect to steal.*`);
+            if (regex.test(line)) {
+                const amount = Number.parseInt(
+                    line
+                        .replace(`${player} uses Too Much to Protect to steal `, '')
+                        .replace(' amber from ', ''),
+                    10
+                );
+                return amount >= 5;
+            }
+        })
 };
 
 // {

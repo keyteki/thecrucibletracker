@@ -1,17 +1,16 @@
 module.exports = {
-  id: 'gamble-and-win',
-  check: ({
-    player,
-    game,
-    summary,
-    events,
-  }) => !!events.find((e) => Array.isArray(e.message)
-        && e.message[0].name === player
-        && / uses /.test(e.message[1])
-        && e.message[2]
-        && e.message[2].argType === 'card'
-        && e.message[2].name === 'Gambling Den'
-        && e.message[4] === 'gain')
+    id: 'gamble-and-win',
+    check: ({ player, game, summary, events }) =>
+        !!events.find(
+            (e) =>
+                Array.isArray(e.message) &&
+                e.message[0].name === player &&
+                / uses /.test(e.message[1]) &&
+                e.message[2] &&
+                e.message[2].argType === 'card' &&
+                e.message[2].name === 'Gambling Den' &&
+                e.message[4] === 'gain'
+        )
 };
 
 // },

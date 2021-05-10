@@ -1,22 +1,21 @@
 module.exports = {
-  id: 'reap-with-sutterkin',
-  check: ({
-    player,
-    game,
-    summary,
-    events,
-  }) => !!events.find((e) => Array.isArray(e.message)
-        && e.message[0].name === player
-        && / uses /.test(e.message[1])
-        && e.message[2]
-        && e.message[2].argType === 'card'
-        && e.message[3] === ' to '
-        && e.message[4].message
-        && e.message[4].message[0] === 'reap with '
-        && e.message[4].message[1]
-        && e.message[4].message[1].message
-        && e.message[4].message[1].message[0]
-        && [ 'Professor Sutterkin' ].includes(e.message[4].message[1].message[0].name))
+    id: 'reap-with-sutterkin',
+    check: ({ player, game, summary, events }) =>
+        !!events.find(
+            (e) =>
+                Array.isArray(e.message) &&
+                e.message[0].name === player &&
+                / uses /.test(e.message[1]) &&
+                e.message[2] &&
+                e.message[2].argType === 'card' &&
+                e.message[3] === ' to ' &&
+                e.message[4].message &&
+                e.message[4].message[0] === 'reap with ' &&
+                e.message[4].message[1] &&
+                e.message[4].message[1].message &&
+                e.message[4].message[1].message[0] &&
+                ['Professor Sutterkin'].includes(e.message[4].message[1].message[0].name)
+        )
 };
 
 // {
