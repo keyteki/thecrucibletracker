@@ -32,7 +32,7 @@ const trigger = (event, data) => {
 
 const setupRoutes = (app, dbPool) => {
     const recordedCrucibleGameIds = {};
-    app.post('/api/games', async (req, res) => {
+    /* app.post('/api/games', async (req, res) => {
         const {
             turns,
             date,
@@ -226,7 +226,7 @@ const setupRoutes = (app, dbPool) => {
             logger.error(err);
             res.send(`Error ${err}`);
         }
-    });
+    });*/
 
     app.get('/api/games/:gameID/hands', async (req, res) => {
         try {

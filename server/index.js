@@ -97,24 +97,24 @@ app.get('/api/summary', async (req, res) => {
 });
 
 const recordedEventsForGame = {};
-app.post('/api/events', async (req, res) => {
-    try {
-        const { events, gameID } = req.body;
+// app.post('/api/events', async (req, res) => {
+//     try {
+//         const { events, gameID } = req.body;
 
-        if (recordedEventsForGame[gameID]) {
-            res.send('ok');
-            return;
-        }
-        recordedEventsForGame[gameID] = true;
+//         if (recordedEventsForGame[gameID]) {
+//             res.send('ok');
+//             return;
+//         }
+//         recordedEventsForGame[gameID] = true;
 
-        const query = 'INSERT INTO events VALUES (DEFAULT, $1, $2)';
-        await dbPool.query(query, [gameID, JSON.stringify(events).replace(/'/g, "''")]);
-        res.send('ok');
-    } catch (err) {
-        logger.error(err);
-        res.send(`Error ${err}`);
-    }
-});
+//         const query = 'INSERT INTO events VALUES (DEFAULT, $1, $2)';
+//         await dbPool.query(query, [gameID, JSON.stringify(events).replace(/'/g, "''")]);
+//         res.send('ok');
+//     } catch (err) {
+//         logger.error(err);
+//         res.send(`Error ${err}`);
+//     }
+// });
 
 let cardPlayData = null;
 const updateCardPlayLeaderboard = async () => {
