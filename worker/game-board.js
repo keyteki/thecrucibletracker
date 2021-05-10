@@ -1,4 +1,8 @@
-const REDIS_CONNECTION_STRING = process.env.REDIS_URL;
+const ConfigService = require('../shared/ConfigService');
+const configService = new ConfigService();
+
+const REDIS_CONNECTION_STRING = configService.getValue('redisUrl');
+
 const Queue = require('bull');
 
 const consume = (dbPool) => {

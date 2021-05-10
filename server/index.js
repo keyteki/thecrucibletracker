@@ -3,11 +3,21 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const { Pool } = require('pg');
 const path = require('path');
-const { uniqBy } = require('lodash');
 const { cleanGame, cleanPlayerObject } = require('../privacy');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+const historyApiFallback = require('connect-history-api-fallback');
+const webpack = require('webpack');
+const webpackConfig = require('../webpack.dev.js');
+const ConfigService = require('../shared/ConfigService');
+const configService = new ConfigService();
 
 const dbPool = new Pool({
-    connectionString: process.env.DATABASE_URL,
+    user: configService.getValue('dbUser'),
+    host: configService.getValue('dbHost'),
+    database: configService.getValue('dbDatabase'),
+    password: configService.getValue('dbPassword'),
+    port: configService.getValue('dbPort'),
     ssl: false
 });
 
@@ -55,30 +65,27 @@ decks.setupRoutes(app, dbPool);
 games.setupRoutes(app, dbPool);
 leaderboard.setupRoutes(app, dbPool);
 
-games.on(
-    'new-game',
-    ({ winner, winnerDeckID, loser, loserDeckID, turns, date, crucibleGameID }) => {
-        const dup = recentGames.find(
-            (game) => game.winner === winner && game.loser === loser && game.turns === turns
-        );
+games.on('new-game', ({ winner, loser, turns, date, crucibleGameID }) => {
+    const dup = recentGames.find(
+        (game) => game.winner === winner && game.loser === loser && game.turns === turns
+    );
 
-        setTimeout(() => {
-            if (!dup) {
-                recentGames.pop();
-                recentGames.unshift(
-                    cleanGame({
-                        winner,
-                        loser,
-                        date,
-                        turns,
-                        crucibleGameID
-                    })
-                );
-                totalGames += 1;
-            }
-        }, 2000);
-    }
-);
+    setTimeout(() => {
+        if (!dup) {
+            recentGames.pop();
+            recentGames.unshift(
+                cleanGame({
+                    winner,
+                    loser,
+                    date,
+                    turns,
+                    crucibleGameID
+                })
+            );
+            totalGames += 1;
+        }
+    }, 2000);
+});
 
 app.get('/api/summary', async (req, res) => {
     res.json({
@@ -136,9 +143,38 @@ app.get('/images/:name', (req, res) => {
     res.sendFile(path.join(`${__dirname}/../dist/${name}`));
 });
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(`${__dirname}/../dist/index.html`));
-});
+if (process.env.NODE_ENV !== 'production') {
+    const compiler = webpack(webpackConfig);
+    const middleware = webpackDevMiddleware(compiler, {
+        hot: true,
+        contentBase: 'client',
+        publicPath: '/',
+        stats: {
+            colors: true,
+            hash: false,
+            timings: true,
+            chunks: false,
+            chunkModules: false,
+            modules: false
+        },
+        historyApiFallback: true
+    });
+
+    app.use(middleware);
+    app.use(
+        webpackHotMiddleware(compiler, {
+            log: false,
+            path: '/__webpack_hmr',
+            heartbeat: 2000
+        })
+    );
+    app.use(historyApiFallback());
+    app.use(middleware);
+} else {
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(`${__dirname}/../dist/index.html`));
+    });
+}
 
 let port = process.env.PORT;
 if (port === undefined || port === '') {

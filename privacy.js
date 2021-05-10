@@ -1,7 +1,13 @@
 const { Pool } = require('pg');
+const ConfigService = require('./shared/ConfigService');
+const configService = new ConfigService();
 
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
+    user: configService.getValue('dbUser'),
+    host: configService.getValue('dbHost'),
+    database: configService.getValue('dbDatabase'),
+    password: configService.getValue('dbPassword'),
+    port: configService.getValue('dbPort'),
     ssl: false
 });
 

@@ -1,0 +1,10 @@
+{
+    env: 'development',
+    
+    redisUrl: 'redis://redis/',
+    dbUser: 'keyteki',
+    dbHost: 'postgres',
+    dbDatabase: 'keyteki',
+    dbPassword: 'changemeplease',
+    dbPort: 5432
+}

@@ -1,5 +1,3 @@
-const REDIS_CONNECTION_STRING = process.env.REDIS_URL;
-
 const Queue = require('bull');
 const _ = require('lodash');
 const moment = require('moment');
@@ -12,6 +10,11 @@ const {
     cleanUsername,
     isPublic
 } = require('../privacy');
+
+const ConfigService = require('../shared/ConfigService');
+const configService = new ConfigService();
+
+const REDIS_CONNECTION_STRING = configService.getValue('redisUrl');
 
 const gameSummaryQueue = new Queue('game summary', REDIS_CONNECTION_STRING);
 const gameBoardQueue = new Queue('game board', REDIS_CONNECTION_STRING);

@@ -3,12 +3,16 @@ const storeGameBoards = require('./game-board');
 const createGameSummary = require('./game-summary');
 const achievements = require('./achievements');
 const cardPlays = require('./card-plays');
-
-const DATABASE_CONNECTION_STRING = process.env.DATABASE_URL;
+const ConfigService = require('./services/ConfigService');
+const configService = new ConfigService();
 
 const dbPool = new Pool({
-    connectionString: DATABASE_CONNECTION_STRING,
-    ssl: process.env.NODE_ENV === 'development' ? false : { rejectUnauthorized: false }
+    user: configService.getValue('dbUser'),
+    host: configService.getValue('dbHost'),
+    database: configService.getValue('dbDatabase'),
+    password: configService.getValue('dbPassword'),
+    port: configService.getValue('dbPort'),
+    ssl: false
 });
 
 console.log('[worker] Started');

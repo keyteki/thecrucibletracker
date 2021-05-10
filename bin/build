@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 rm -fr dist/
 mkdir -p dist/images
-webpack
+webpack --config webpack.production.js
 #cp images/*.png dist/images/
 #cp images/*.jpg dist/images/
 cp web/*.html dist
