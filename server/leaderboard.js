@@ -3,13 +3,14 @@ const _ = require('lodash');
 const Cursor = require('pg-cursor');
 const moment = require('moment');
 const { cleanUsername } = require('../privacy');
+const logger = require('../shared/log');
 
 const setupRoutes = (app, dbPool) => {
     let leaderboardCache = null;
     let leaderboardPastCache = null;
 
     const buildLeaderboard = async () => {
-        console.log('Build leaderboard');
+        logger.info('Build leaderboard');
         // intentionally obtuse code below
         const client = await dbPool.connect();
 
@@ -258,7 +259,7 @@ const setupRoutes = (app, dbPool) => {
                 ]
             });
         } catch (err) {
-            console.error(err);
+            logger.error(err);
             res.send(`Error ${err}`);
         }
     });

@@ -1,3 +1,5 @@
+const logger = require('../shared/log');
+
 const ConfigService = require('../shared/ConfigService');
 const configService = new ConfigService();
 
@@ -118,13 +120,13 @@ const consume = (dbPool) => {
     queue.process(async (job, done) => {
         const { gameID } = job.data;
         if (_.isString(gameID)) {
-            console.log(`Skipping game summary ${gameID}`);
+            logger.info(`Skipping game summary ${gameID}`);
             return done();
         }
 
         const events = await fetchEventsFor(dbPool, gameID);
         if (!events) {
-            console.log(`Skipping game summary ${gameID}`);
+            logger.info(`Skipping game summary ${gameID}`);
             return done();
         }
 
@@ -135,9 +137,9 @@ const consume = (dbPool) => {
             const turns = parseTurns(events);
             await deleteTurns(dbPool, gameID);
             await storeTurns(dbPool, gameID, summary.winner.name, summary.loser.name, turns);
-            console.log(`Finished game summary ${gameID}`);
+            logger.info(`Finished game summary ${gameID}`);
         } catch (e) {
-            console.log(e);
+            logger.info(e);
             done();
             return;
         }

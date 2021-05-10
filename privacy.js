@@ -1,4 +1,6 @@
 const { Pool } = require('pg');
+const logger = require('./shared/log');
+
 const ConfigService = require('./shared/ConfigService');
 const configService = new ConfigService();
 
@@ -24,7 +26,7 @@ const identifyPlayersToTrack = async () => {
             trackPlayer(name);
         });
     } catch (err) {
-        console.error(err);
+        logger.error(err);
     }
 };
 identifyPlayersToTrack();

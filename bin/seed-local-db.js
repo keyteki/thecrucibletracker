@@ -4,6 +4,7 @@ const games = require('../fixtures/games');
 const events = require('../fixtures/game-events');
 const startingHands = require('../fixtures/starting-hands');
 const boardStates = require('../fixtures/board-states');
+const logger = require('../shared/log');
 
 const connectionString = 'postgres://postgres:postgres@127.0.0.1:3005/postgres';
 
@@ -39,7 +40,7 @@ const main = async () => {
             game.loser_deck_expansion
         ]);
         await client.end();
-        console.log(`Game ${game.id} uploaded`);
+        logger.info(`Game ${game.id} uploaded`);
     }
 
     for (let i = 0; i < events.length; i++) {
@@ -57,7 +58,7 @@ const main = async () => {
             JSON.stringify(event.events)
         ]);
         await client.end();
-        console.log(`Event ${event.id} uploaded`);
+        logger.info(`Event ${event.id} uploaded`);
     }
 
     for (let i = 0; i < startingHands.length; i++) {
@@ -75,7 +76,7 @@ const main = async () => {
             JSON.stringify(startingHand.hands)
         ]);
         await client.end();
-        console.log(`Hand ${startingHand.id} uploaded`);
+        logger.info(`Hand ${startingHand.id} uploaded`);
     }
 
     for (let i = 0; i < boardStates.length; i++) {
@@ -97,7 +98,7 @@ const main = async () => {
             JSON.stringify(boardState.purged)
         ]);
         await client.end();
-        console.log(`Board state ${boardState.id} uploaded`);
+        logger.info(`Board state ${boardState.id} uploaded`);
     }
 };
 

@@ -1,5 +1,6 @@
 const { bind } = require('./utils');
 const { cleanGame } = require('../privacy');
+const logger = require('../shared/log');
 
 const setupRoutes = (app, dbPool) => {
     bind(app, 'get', '/api/decks/:deckName', async (req, res) => {
@@ -44,7 +45,7 @@ const setupRoutes = (app, dbPool) => {
             const queryResult = await dbPool.query(query, [req.params.deckID]);
             res.json(queryResult.rows.map(cleanGame));
         } catch (err) {
-            console.error(err);
+            logger.error(err);
             res.send(`Error ${err}`);
         }
     });
@@ -75,7 +76,7 @@ const setupRoutes = (app, dbPool) => {
                 decks: deckMap
             });
         } catch (err) {
-            console.error(err);
+            logger.error(err);
             res.send(`Error ${err}`);
         }
     });

@@ -1,3 +1,5 @@
+const logger = require('../shared/log');
+
 // The method of using PLAYER_STATE_UPDATE only works
 // if all PLAYER_STATE_UPDATE events are present. If
 // users refresh their page mid game PLAYER_STATE_UPDATE
@@ -119,11 +121,11 @@ const getAemberCaptured = (player, events) => {
                 text = text.replace(' amber from ', '');
                 amount += Number.parseInt(text, 10);
             } else {
-                // console.log(text); TODO
+                // logger.info(text); TODO
             }
 
             if (isNaN(amount)) {
-                console.log('nan amount 2', e.message[4].message[0]);
+                logger.info('nan amount 2', e.message[4].message[0]);
             }
         }
     });
@@ -149,7 +151,7 @@ const getAemberStolen = (player, events) => {
             amount += Number.parseInt(text, 10);
 
             if (isNaN(amount)) {
-                console.log('nan amount', e.message[4].message[0]);
+                logger.info('nan amount', e.message[4].message[0]);
             }
         }
 

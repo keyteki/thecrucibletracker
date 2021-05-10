@@ -10,6 +10,7 @@ const {
     cleanUsername,
     isPublic
 } = require('../privacy');
+const logger = require('../shared/log');
 
 const ConfigService = require('../shared/ConfigService');
 const configService = new ConfigService();
@@ -54,13 +55,13 @@ const setupRoutes = (app, dbPool) => {
         }
 
         if (turns <= 2) {
-            console.log(`Ignoring game from ${winner} and ${loser} because too few turns`);
+            logger.info(`Ignoring game from ${winner} and ${loser} because too few turns`);
             res.send('ok');
             return;
         }
 
         if (recordedCrucibleGameIds[crucibleGameID]) {
-            console.log(`Ignoring game from ${winner} and ${loser} because already recorded`);
+            logger.info(`Ignoring game from ${winner} and ${loser} because already recorded`);
             res.send('ok');
             return;
         }
@@ -70,12 +71,12 @@ const setupRoutes = (app, dbPool) => {
             const query = 'SELECT id FROM games WHERE crucible_game_id = $1';
             const queryResponse = await dbPool.query(query, [crucibleGameID]);
             if (queryResponse.rows.length) {
-                console.log(`Ignoring game from ${winner} and ${loser} because is duplicate`);
+                logger.info(`Ignoring game from ${winner} and ${loser} because is duplicate`);
                 res.send({ id: queryResponse.rows[0].id });
                 return;
             }
         } catch (err) {
-            console.error(err);
+            logger.error(err);
             res.send(`Error ${err}`);
             return;
         }
@@ -104,7 +105,7 @@ const setupRoutes = (app, dbPool) => {
             gameID = queryResponse.rows[0].id;
             res.send({ id: gameID });
         } catch (err) {
-            console.error(err);
+            logger.error(err);
             res.send(`Error ${err}`);
         }
 
@@ -142,7 +143,7 @@ const setupRoutes = (app, dbPool) => {
                         }
                     );
                 } catch (err) {
-                    console.error(err);
+                    logger.error(err);
                 }
             }, 5000);
         }
@@ -191,7 +192,7 @@ const setupRoutes = (app, dbPool) => {
             const query = 'INSERT INTO players VALUES (DEFAULT, $1) ON CONFLICT (name) DO NOTHING';
             await dbPool.query(query, [player]);
         } catch (err) {
-            console.error(err);
+            logger.error(err);
         }
 
         try {
@@ -209,7 +210,7 @@ const setupRoutes = (app, dbPool) => {
                 return;
             }
         } catch (err) {
-            console.error(err);
+            logger.error(err);
             res.send(`Error ${err}`);
             return;
         }
@@ -222,7 +223,7 @@ const setupRoutes = (app, dbPool) => {
             await dbPool.query(query, [gameID, JSON.stringify(handData)]);
             res.send('ok');
         } catch (err) {
-            console.error(err);
+            logger.error(err);
             res.send(`Error ${err}`);
         }
     });
@@ -253,7 +254,7 @@ const setupRoutes = (app, dbPool) => {
                 res.json({});
             }
         } catch (err) {
-            console.error(err);
+            logger.error(err);
             res.send(`Error ${err}`);
         }
     });
@@ -279,7 +280,7 @@ const setupRoutes = (app, dbPool) => {
             cleanGameTimeline(queryResult.rows[0]);
             res.json(game);
         } catch (err) {
-            console.error(err);
+            logger.error(err);
             res.send(`Error ${err}`);
         }
     });
@@ -337,7 +338,7 @@ const setupRoutes = (app, dbPool) => {
 
             res.json(output);
         } catch (err) {
-            console.error(err);
+            logger.error(err);
             res.send(`Error ${err}`);
         }
     });
@@ -376,7 +377,7 @@ const setupRoutes = (app, dbPool) => {
                 res.json([]);
             }
         } catch (err) {
-            console.error(err);
+            logger.error(err);
             res.send(`Error ${err}`);
         }
     });
@@ -388,7 +389,7 @@ const setupRoutes = (app, dbPool) => {
             const queryResult = await dbPool.query(query, [req.params.gameID]);
             res.json(cleanBoards(queryResult.rows));
         } catch (err) {
-            console.error(err);
+            logger.error(err);
             res.send(`Error ${err}`);
         }
     });
@@ -418,7 +419,7 @@ const setupRoutes = (app, dbPool) => {
                 log: toGameLog(events)
             });
         } catch (e) {
-            console.log(e);
+            logger.info(e);
             res.json({});
         }
     });

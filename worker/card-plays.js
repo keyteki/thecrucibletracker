@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const formatCardName = require('../formatCardName');
+const logger = require('../shared/log');
 
 const fetchEventsFor = async (dbPool, gameID) => {
     const client = await dbPool.connect();
@@ -31,7 +32,7 @@ const consume = (dbPool) => {
         for (const gameID of ids) {
             const events = await fetchEventsFor(dbPool, gameID);
             if (!events) {
-                console.log(`[card-plays] Error at game ${gameID}`);
+                logger.info(`[card-plays] Error at game ${gameID}`);
                 await dbPool.query(
                     `
           UPDATE
@@ -74,7 +75,7 @@ const consume = (dbPool) => {
                         cardDiscards[e.message[0].name][card].count += 1;
                     }
                 } catch (err) {
-                    console.log('caught error', err);
+                    logger.info('caught error', err);
                 }
             });
 

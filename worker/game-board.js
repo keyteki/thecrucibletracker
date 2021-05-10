@@ -1,12 +1,13 @@
 const ConfigService = require('../shared/ConfigService');
 const configService = new ConfigService();
+const logger = require('../shared/log');
 
 const REDIS_CONNECTION_STRING = configService.getValue('redisUrl');
 
 const Queue = require('bull');
 
 const consume = (dbPool) => {
-    console.log('[worker::game board] Launching');
+    logger.info('[worker::game board] Launching');
 
     const queue = new Queue('game board', REDIS_CONNECTION_STRING);
 
@@ -30,7 +31,7 @@ const consume = (dbPool) => {
                 persistedArchivesData = queryResponse.rows[0].archives;
             }
         } catch (err) {
-            console.error(err);
+            logger.error(err);
             return done();
         }
 
@@ -71,7 +72,7 @@ const consume = (dbPool) => {
                     JSON.stringify(persistedArchivesData)
                 ]);
             } catch (err) {
-                console.error(err);
+                logger.error(err);
             }
             if (client) {
                 client.release();
@@ -90,7 +91,7 @@ const consume = (dbPool) => {
                     JSON.stringify(purged)
                 ]);
             } catch (err) {
-                console.error(err);
+                logger.error(err);
             }
             if (client) {
                 client.release();

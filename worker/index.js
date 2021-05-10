@@ -4,6 +4,8 @@ const createGameSummary = require('./game-summary');
 const achievements = require('./achievements');
 const cardPlays = require('./card-plays');
 const ConfigService = require('./services/ConfigService');
+const logger = require('../shared/log');
+
 const configService = new ConfigService();
 
 const dbPool = new Pool({
@@ -15,7 +17,7 @@ const dbPool = new Pool({
     ssl: false
 });
 
-console.log('[worker] Started');
+logger.info('[worker] Started');
 storeGameBoards.consume(dbPool);
 createGameSummary.consume(dbPool);
 

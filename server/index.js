@@ -10,6 +10,8 @@ const historyApiFallback = require('connect-history-api-fallback');
 const webpack = require('webpack');
 const webpackConfig = require('../webpack.dev.js');
 const ConfigService = require('../shared/ConfigService');
+const logger = require('../shared/log');
+
 const configService = new ConfigService();
 
 const dbPool = new Pool({
@@ -35,7 +37,7 @@ const loadSetupData = async () => {
             delete game.crucible_game_id;
         });
     } catch (err) {
-        console.error(err);
+        logger.error(err);
     }
 
     try {
@@ -43,7 +45,7 @@ const loadSetupData = async () => {
         const queryResult = await dbPool.query(query);
         totalGames = Number.parseInt(queryResult.rows[0].count, 10);
     } catch (err) {
-        console.error(err);
+        logger.error(err);
     }
 };
 
@@ -109,14 +111,14 @@ app.post('/api/events', async (req, res) => {
         await dbPool.query(query, [gameID, JSON.stringify(events).replace(/'/g, "''")]);
         res.send('ok');
     } catch (err) {
-        console.error(err);
+        logger.error(err);
         res.send(`Error ${err}`);
     }
 });
 
 let cardPlayData = null;
 const updateCardPlayLeaderboard = async () => {
-    console.log('[card play leaderboard] Downloading data');
+    logger.info('[card play leaderboard] Downloading data');
     try {
         const query = 'SELECT data FROM card_play_leaderboard ORDER BY date DESC LIMIT 1';
         const queryResult = await dbPool.query(query);
@@ -125,9 +127,9 @@ const updateCardPlayLeaderboard = async () => {
         Object.keys(cardPlayData).forEach((card) => {
             cardPlayData[card].topPlayers = cardPlayData[card].topPlayers.map(cleanPlayerObject);
         });
-        console.log(`[card play leaderboard] Loaded ${Object.keys(cardPlayData).length} cards`);
+        logger.info(`[card play leaderboard] Loaded ${Object.keys(cardPlayData).length} cards`);
     } catch (err) {
-        console.error(err);
+        logger.error(err);
     }
 };
 
@@ -182,4 +184,4 @@ if (port === undefined || port === '') {
 }
 
 app.listen(port);
-console.log(`Listening on port ${port}`);
+logger.info(`Listening on port ${port}`);

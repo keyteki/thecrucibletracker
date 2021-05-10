@@ -1,6 +1,8 @@
 const { Pool } = require('pg');
 const achievements = require('./index');
 const ConfigService = require('./services/ConfigService');
+const logger = require('../shared/log');
+
 const configService = new ConfigService();
 
 const dbPool = new Pool({
@@ -12,6 +14,6 @@ const dbPool = new Pool({
     ssl: false
 });
 
-console.log('Connected to database');
+logger.info('Connected to database');
 achievements.fillQueue(dbPool);
 achievements.consume(dbPool);

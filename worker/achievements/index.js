@@ -1,3 +1,5 @@
+const logger = require('../shared/log');
+
 const ConfigService = require('../../shared/ConfigService');
 const configService = new ConfigService();
 
@@ -46,9 +48,9 @@ const fetchGameData = async (client, gameID) => {
             summary: parseEvents(data.events)
         });
     } catch (e) {
-        console.log('[achivements] error');
-        console.log(e);
-        console.log(data);
+        logger.info('[achivements] error');
+        logger.info(e);
+        logger.info(data);
     }
 };
 
@@ -73,7 +75,7 @@ const queueNextGame = async (dbPool) => {
 
     if (gameIDs[0]) {
         if (gamesQueued[gameIDs[0]]) {
-            console.log(`[achievements] [warning] Attempted to queue ${gameIDs[0]} again`);
+            logger.info(`[achievements] [warning] Attempted to queue ${gameIDs[0]} again`);
             return;
         }
         gamesQueued[gameIDs[0]] = true;
@@ -151,11 +153,11 @@ const awardAchievement = async (client, name, player, crucibleGameId, date) => {
 
 const consume = async (dbPool) => {
     const jobCounts = await queue.getJobCounts();
-    console.log('[achievements] Job counts', jobCounts);
+    logger.info('[achievements] Job counts', jobCounts);
 
     queue.clean(10000, 'completed');
     queue.on('cleaned', (jobs, type) => {
-        console.log('[achievements] Cleaned %s %s jobs', jobs.length, type);
+        logger.info('[achievements] Cleaned %s %s jobs', jobs.length, type);
     });
 
     queue.process(async (job, done) => {
@@ -163,12 +165,12 @@ const consume = async (dbPool) => {
         const client = await dbPool.connect();
 
         if (!gameID) {
-            console.log(`[achievements] Analyzing game with undefined id ${gameID}`, job.data);
+            logger.info(`[achievements] Analyzing game with undefined id ${gameID}`, job.data);
         }
 
         const gameData = await fetchGameData(dbPool, gameID);
         if (!gameData) {
-            console.log(`[achievements] Skipping achievements for game ${gameID}`);
+            logger.info(`[achievements] Skipping achievements for game ${gameID}`);
 
             const query = `
         UPDATE games
@@ -232,8 +234,8 @@ const consume = async (dbPool) => {
                         );
                     }
                 } catch (e) {
-                    console.log(unawardedAchievements[i]);
-                    console.log(
+                    logger.info(unawardedAchievements[i]);
+                    logger.info(
                         `[achievements] Script "${script.id}" threw an error ${e} for game ${gameData.id}`
                     );
 

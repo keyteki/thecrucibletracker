@@ -1,3 +1,5 @@
+const logger = require('../shared/log');
+
 const cardNameReplacementRegex = /[^\d\w\s]/g;
 const spaceRegex = /\s/g;
 const stripSpecialCharacters = (name) => name.replace(cardNameReplacementRegex, '');
@@ -24,7 +26,7 @@ const getTop10PlaysForCard = async (dbPool, card) => {
 };
 
 const main = async (dbPool) => {
-    console.log('[card-leaderboard] Start');
+    logger.info('[card-leaderboard] Start');
 
     const CotACards = require('../expansions/CotA');
     const AoACards = require('../expansions/AoA');
@@ -70,7 +72,7 @@ const main = async (dbPool) => {
             );
 
         if (!ffgData) {
-            console.log(
+            logger.info(
                 '[card-leaderboard] data not found for ',
                 card,
                 cardNameToCardNameKey(card)
@@ -96,7 +98,7 @@ const main = async (dbPool) => {
     const date = new Date().toISOString();
     await client.query(query, [JSON.stringify(leaderboard), date]);
     await client.release();
-    console.log('[card-leaderboard] Done');
+    logger.info('[card-leaderboard] Done');
 };
 
 module.exports = main;
