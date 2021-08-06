@@ -1,6 +1,6 @@
 const base =
     process.env.NODE_ENV === 'development'
-        ? 'http://localhost:8003'
+        ? 'http://localhost:4000/img'
         : 'https://thecrucible.online/img';
 
 export default (id, assetType, card) => {

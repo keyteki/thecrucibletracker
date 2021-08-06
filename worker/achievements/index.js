@@ -1,4 +1,4 @@
-const logger = require('../shared/log');
+const logger = require('../../shared/log');
 
 const ConfigService = require('../../shared/ConfigService');
 const configService = new ConfigService();

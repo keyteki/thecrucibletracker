@@ -4,5 +4,5 @@ docker-compose stop
 docker-compose up --build -d
 bin/setup-local-db
 node --max-old-space-size=8192 bin/seed-local-db
-NODE_ENV=development DATABASE_URL=postgres://postgres:postgres@127.0.0.1:3005/postgres REDIS_URL=redis://localhost:3004 bin/parse-game-events
-yarn worker
+#yarn worker
+#node --max-old-space-size=8192 bin/seed-game-summary

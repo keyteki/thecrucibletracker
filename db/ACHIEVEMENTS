@@ -4,5 +4,6 @@ create table achievements (
   progress INTEGER DEFAULT 0,
   player text,
   date_awarded_on timestamp,
-  game_awarded_in_crucible_game_id text
+  game_awarded_in_crucible_game_id text,
+  UNIQUE(name, player)
 );

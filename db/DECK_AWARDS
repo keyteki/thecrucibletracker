@@ -3,5 +3,6 @@ CREATE TABLE deck_awards (
   type TEXT,
   player TEXT,
   deck_uuid TEXT,
-  date_created TIMESTAMP
+  date_created TIMESTAMP,
+  CONSTRAINT deck_awards_deck_player_constraint UNIQUE (player, deck_uuid)
 );

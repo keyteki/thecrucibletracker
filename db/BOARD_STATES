@@ -5,5 +5,6 @@ create table board_states (
   board json,
   hand json,
   archives json,
-  purged json
+  purged json,
+  UNIQUE (crucible_game_id, turn)
 );

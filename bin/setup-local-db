@@ -4,15 +4,18 @@ files=(
   PLAYERS
   ACHIEVEMENTS
   BOARD_STATES
+  DECK_AWARDS
   STARTING_HANDS
   GAME_TIMELINE
   GAME_SUMMARY
   EVENTS
   GAMES
+  CARD_PLAYS
+  CARD_PLAY_LEADERBOARD
 )
 
-for i in "${files[@]}"; 
-do 
+for i in "${files[@]}";
+do
   PGPASSWORD=postgres psql -h localhost -p 3005 -U postgres -c "DROP TABLE IF EXISTS ${i}"
 done
 
@@ -28,10 +31,10 @@ do
 done
 
 
-for i in "${files[@]}"; 
-do 
+for i in "${files[@]}";
+do
   sql=`tr -d '\n' < db/${i}`;
   PGPASSWORD=postgres psql -h localhost -p 3005 -U postgres -c "${sql}"
 done
 
-PGPASSWORD=postgres psql -h localhost -p 3005 -U postgres -c '\d'
+PGPASSWORD=postgres psql -h localhost -p 3005 -U postgres -P pager=off -c '\d'

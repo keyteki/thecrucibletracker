@@ -5,8 +5,16 @@ const events = require('../fixtures/game-events');
 const startingHands = require('../fixtures/starting-hands');
 const boardStates = require('../fixtures/board-states');
 const logger = require('../shared/log');
+const ConfigService = require('../shared/ConfigService');
 
-const connectionString = 'postgres://postgres:postgres@127.0.0.1:3005/postgres';
+const configService = new ConfigService();
+const dbDatabase = configService.getValue('dbDatabase');
+const dbUser = configService.getValue('dbUser');
+const dbHost = configService.getValue('dbHost');
+const dbPassword = configService.getValue('dbPassword');
+const dbPort = configService.getValue('dbPort');
+
+const connectionString = `postgres://${dbUser}:${dbPassword}@${dbHost}:${dbPort}/${dbDatabase}`;
 
 const main = async () => {
     for (let i = 0; i < games.length; i++) {
@@ -16,6 +24,11 @@ const main = async () => {
             connectionString
         });
         await client.connect();
+
+        const insertPlayerQuery =
+            'INSERT INTO players VALUES (DEFAULT, $1) ON CONFLICT (name) DO NOTHING';
+        await client.query(insertPlayerQuery, [game.winner]);
+        await client.query(insertPlayerQuery, [game.loser]);
 
         const query =
             'INSERT INTO games VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)';

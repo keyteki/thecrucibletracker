@@ -16,5 +16,9 @@ create table games (
   scanned_for_card_plays boolean DEFAULT FALSE,
   scanned_for_achievements boolean DEFAULT FALSE,
   winner_deck_expansion text,
-  loser_deck_expansion text
+  loser_deck_expansion text,
+  achievements_hit_error boolean DEFAULT FALSE,
+  card_plays_hit_error boolean DEFAULT FALSE
 );
+
+CREATE INDEX idx_games_crucible_game_id ON games USING btree (crucible_game_id);
