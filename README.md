@@ -4,10 +4,26 @@ The Crucible Tracker is a stat tracker for [thecrucible.online](https://thecruci
 
 ## Setup
 
+For the first time, run:
+
 ```
 bin/setup-local-development
+
+# on console 1
+yarn worker
+
+# on console 2
 yarn server
-yarn watch
+
+# process game summaries
+node --max-old-space-size=8192 bin/seed-game-summary
+```
+
+After you setup the local environment, you can run it again using
+
+```
+docker-compose stop
+docker-compose up --build -d
 ```
 
 Open http://localhost:8000

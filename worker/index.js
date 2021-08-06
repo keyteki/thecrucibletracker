@@ -3,7 +3,7 @@ const storeGameBoards = require('./game-board');
 const createGameSummary = require('./game-summary');
 const achievements = require('./achievements');
 const cardPlays = require('./card-plays');
-const ConfigService = require('./services/ConfigService');
+const ConfigService = require('../shared/ConfigService');
 const logger = require('../shared/log');
 
 const configService = new ConfigService();

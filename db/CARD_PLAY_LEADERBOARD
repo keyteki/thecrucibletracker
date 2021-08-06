@@ -1,5 +1,5 @@
 create table card_play_leaderboard (
   id SERIAL PRIMARY KEY,
   data json NOT NULL,
-  date timestamp NOT NULL
+  date timestamp without time zone NOT NULL
 );

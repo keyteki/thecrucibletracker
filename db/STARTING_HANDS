@@ -3,3 +3,5 @@ create table starting_hands (
   crucible_game_id text,
   hands json
 );
+
+CREATE INDEX idx_starting_hands_game_id ON public.starting_hands USING btree (crucible_game_id);
